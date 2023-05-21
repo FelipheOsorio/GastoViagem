@@ -1,20 +1,10 @@
 package devandroid.felipe.gastoviagem
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.KeyEvent.KEYCODE_FORWARD
-import android.view.View
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.setViewTreeOnBackPressedDispatcherOwner
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import devandroid.felipe.gastoviagem.databinding.ActivityMainBinding
-import java.util.Objects
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
