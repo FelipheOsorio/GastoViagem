@@ -14,53 +14,64 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dispesasViagem = Viagem()
+        val travelExpenses = Viagem()
 
-        binding.editDistance.setOnKeyListener { _, keycode, event ->
-            if (keycode == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+        binding.editDistance.setOnKeyListener { _, i, event ->
+            if (i == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
 
-               dispesasViagem.distancia = binding.editDistance.text.toString()
+                travelExpenses.distance = binding.editDistance.text.toString()
 
-                if(validacaoDosDados(dispesasViagem)) {
-                    ativarBotao()
+                if(validateData(travelExpenses)) {
+                    enabledButton(true)
                 } else {
-                    binding.buttonCalculate.isEnabled = false
+                    enabledButton(false)
                 }
 
+                true
+
+            } else if(i == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+                enabledButton(false)
                 true
             } else {
                 false
             }
         }
 
-        binding.editPrice.setOnKeyListener { _, keycode, event ->
-            if (keycode == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+        binding.editPrice.setOnKeyListener { _, i, event ->
+            if (i == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
 
-                dispesasViagem.preco = binding.editPrice.text.toString()
+                travelExpenses.price = binding.editPrice.text.toString()
 
-                if(validacaoDosDados(dispesasViagem)) {
-                    ativarBotao()
+                if(validateData(travelExpenses)) {
+                    enabledButton(true)
                 } else {
-                    binding.buttonCalculate.isEnabled = false
+                    enabledButton(false)
                 }
 
+                true
+
+            } else if(i == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+                enabledButton(false)
                 true
             } else {
                 false
             }
         }
 
-        binding.editAutonomy.setOnKeyListener { _, keycode, event ->
-            if (keycode == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+        binding.editAutonomy.setOnKeyListener { _, i, event ->
+            if(i == KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
 
-                dispesasViagem.autonomia = binding.editAutonomy.text.toString()
+                travelExpenses.autonomy = binding.editAutonomy.text.toString()
 
-                if(validacaoDosDados(dispesasViagem)) {
-                    ativarBotao()
+                if(validateData(travelExpenses)) {
+                    enabledButton(true)
                 } else {
-                    binding.buttonCalculate.isEnabled = false
+                    enabledButton(false)
                 }
 
+                true
+            } else if(i == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+                enabledButton(false)
                 true
             } else {
                 false
@@ -68,35 +79,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonCalculate.setOnClickListener {
-            calculate(dispesasViagem)
+            calculate(travelExpenses)
         }
 
     }
 
-    private fun validacaoDosDados(informacao: Viagem) : Boolean {
-        return (informacao.distancia.isNotEmpty()
-                && informacao.distancia.isNotBlank()
-                && informacao.preco.isNotEmpty()
-                && informacao.preco.isNotBlank()
-                && informacao.autonomia.isNotEmpty()
-                && informacao.autonomia.isNotBlank())
+    private fun validateData(information: Viagem) : Boolean {
+        return (information.distance.isNotEmpty()
+                && information.distance.isNotBlank()
+                && information.price.isNotEmpty()
+                && information.price.isNotBlank()
+                && information.autonomy.isNotEmpty()
+                && information.autonomy.isNotBlank())
     }
 
-    private fun ativarBotao() {
-        binding.buttonCalculate.isEnabled = true
+    private fun enabledButton(permission: Boolean) {
+        binding.buttonCalculate.isEnabled = permission
     }
 
     private fun calculate(valor: Viagem) {
-        val distancia = valor.distancia.toFloat()
-        val preco = valor.preco.toFloat()
-        val autonomia = valor.autonomia.toFloat()
+        val distance = valor.distance.toFloat()
+        val price = valor.price.toFloat()
+        val autonomy = valor.autonomy.toFloat()
 
-        if(distancia == 0F || preco == 0F || autonomia == 0F) {
+        if(distance == 0F || price == 0F || autonomy == 0F) {
             binding.textValueFull.text = getString(R.string.valor_0)
 
         } else {
-            val valorTotal = (distancia * preco) / autonomia
-            binding.textValueFull.text = "R$ ${"%.2f".format(valorTotal)}"
+            val valueFull = (distance * price) / autonomy
+            binding.textValueFull.text = "R$ ${"%.2f".format(valueFull)}"
         }
     }
 }

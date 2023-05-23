@@ -1,9 +1,9 @@
 package devandroid.felipe.gastoviagem
 
 class Viagem(
-    var distancia: String = "",
-    var preco: String = "",
-    var autonomia: String = ""
+    var distance: String = "",
+    var price: String = "",
+    var autonomy: String = ""
 ) {
 
 
